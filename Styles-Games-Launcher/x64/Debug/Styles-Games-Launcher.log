@@ -1,0 +1,18 @@
+﻿D:\VisualStudio\IDE\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: O diretório intermediário (x64\Debug\) contém arquivos compartilhados de outro projeto (Example01.vcxproj). Isso pode levar a um comportamento incorreto de limpeza e recompilação.
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_sdl2.cpp
+  imgui_impl_sdlrenderer2.cpp
+  imgui_stdlib.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  Main.cpp
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(27,114): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(27,107): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(102,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(102,40): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(103,79): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(103,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+  Gerando Código...
+  Styles-Games-Launcher.vcxproj -> D:\VisualStudio Projetos\Styles-Games-Launcher\x64\Debug\Styles-Games-Launcher.exe
