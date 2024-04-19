@@ -8,6 +8,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include <Styles/Games.h>
+
 #if !SDL_VERSION_ATLEAST(2,0,17)
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
@@ -51,7 +53,12 @@ int main(int, char**)
     }
     SDL_Texture* BackgroundT = SDL_CreateTextureFromSurface(renderer, Background);
 
-    float val = 2.5f;
+    SDL_Surface* test = IMG_LoadICO_RW(SDL_RWFromFile("../bin/abs.exe", "r"));
+    if (test == nullptr) {
+        std::cout << "TEXTURE LOADING ERROR";
+        std::cout << "\n" << SDL_GetError();
+    }
+    SDL_Texture* test2 = SDL_CreateTextureFromSurface(renderer, test);
 
     // Main loop
     while (true){
@@ -97,12 +104,11 @@ int main(int, char**)
             int WindowYRatio = 30;
             int resolveAspectY = (GameWindowHeight * WindowYRatio) / 810;
 
-            // Consertar ALTURA RATIO, adicionar jogos = Array<Jogo> -> nome, id, icon
-
+            //Adjust "Games/Jogos" Window with Backgroud.png 
             ImGui::SetWindowPos(ImVec2(resolveAspectX , resolveAspectY), 0);
             ImGui::SetWindowSize(ImVec2(GameWindowWidth - resolveAspectWidth, resolveAspectHeight), 0);
-            // 810 / 60 - 1080 / x
 
+            // Consertar ALTURA RATIO, adicionar jogos = Array<Jogo> -> nome, id, icon
             ImGui::End();
         }
 
