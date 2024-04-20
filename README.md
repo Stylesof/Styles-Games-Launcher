@@ -1,4 +1,4 @@
-# Styles's Games Launcher
+# Styles's Games Launcher (W.I.P.)
 ### Objetivo:
 Criar um launcher para executar jogos de maneira mais rápida, e sem usar a Área de Trabalho (Desktop).
 
