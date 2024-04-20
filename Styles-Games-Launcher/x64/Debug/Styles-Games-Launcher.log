@@ -1,9 +1,8 @@
-﻿D:\VisualStudio\IDE\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: O diretório intermediário (x64\Debug\) contém arquivos compartilhados de outro projeto (Example01.vcxproj). Isso pode levar a um comportamento incorreto de limpeza e recompilação.
-  Main.cpp
-D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(29,114): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
-D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(29,107): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
-D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(108,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(108,40): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(109,79): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(109,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+﻿  Main.cpp
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(31,114): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(31,107): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(114,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(114,40): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(115,79): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
+D:\VisualStudio Projetos\Styles-Games-Launcher\Styles-Games-Launcher\Main.cpp(115,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
   Styles-Games-Launcher.vcxproj -> D:\VisualStudio Projetos\Styles-Games-Launcher\x64\Debug\Styles-Games-Launcher.exe

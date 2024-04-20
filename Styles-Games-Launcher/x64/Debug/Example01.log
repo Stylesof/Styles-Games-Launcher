@@ -1,8 +1,0 @@
-﻿  Main.cpp
-D:\VisualStudio Projetos\Example01\Example01\Main.cpp(27,114): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
-D:\VisualStudio Projetos\Example01\Example01\Main.cpp(27,107): warning C4244: 'argumento': conversão de 'double' para 'int', possível perda de dados
-D:\VisualStudio Projetos\Example01\Example01\Main.cpp(101,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-D:\VisualStudio Projetos\Example01\Example01\Main.cpp(101,40): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-D:\VisualStudio Projetos\Example01\Example01\Main.cpp(102,79): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-D:\VisualStudio Projetos\Example01\Example01\Main.cpp(102,57): warning C4244: 'argumento': conversão de 'int' para 'float', possível perda de dados
-  Example01.vcxproj -> D:\VisualStudio Projetos\Example01\x64\Debug\Example01.exe
