@@ -40,29 +40,31 @@ int main(int, char**)
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 
     ImGui::StyleColorsDark(); //THEME
-    ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(1, 0, 0, 1));
-    ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(1, 0, 0, 1));
-    ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25, 0, 0, 0.25));
 
     //ImGui + SDL2 Renderer
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer2_Init(renderer);
 
     //Variables:----------------------------------------------------------------------{
-
+    /* EXAMPLE OF GAME ADD TO GAME LIST -->
+    - Games var;
+    - SDL_Texture* cs2;
+    - var.addGame(126, (char*)"Cs2", renderer, IMG_Load("../bin/resources/games/cs2.jgp"));
+    - var.addGame(173, (char*)"Warzone", renderer, IMG_Load("../bin/resources/games/cs2.jgp"));
+    */
+    
     SDL_Surface* Background = IMG_Load("../bin/resources/gui/Background.png");
     SDL_Texture* BackgroundT = SDL_CreateTextureFromSurface(renderer, Background);
     if (Background == nullptr || BackgroundT == nullptr) print("TEXTURE LOADING ERROR");
 
-    /* EXAMPLE OF GAME ADD TO GAME LIST -->
-    Games var;
-
-    SDL_Texture* cs2;
-    var.addGame(126, (char*)"Cs2", renderer, IMG_Load("../bin/resources/games/cs2.jgp"));
-    var.addGame(173, (char*)"Warzone", renderer, IMG_Load("../bin/resources/games/cs2.jgp"));
-    */// <--
-    
     // Create Button to addGame()
+    SDL_Surface* surface = IMG_Load("../bin/resources/games/cs2.jpg");
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
 
     //Variables:----------------------------------------------------------------------}
 
@@ -82,13 +84,12 @@ int main(int, char**)
         SDL_RenderClear(renderer);
 
         //Codigo--------------------------------------------------------------------------{
-        //*
         SDL_RenderCopy(renderer, BackgroundT, NULL, NULL);
         
-        {
+        {        
             ImGuiWindowFlags flags = (ImGuiWindowFlags)(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
             ImGui::SetNextWindowBgAlpha(0.5f);
-            ImGui::Begin("Jogos", NULL, flags);  
+            ImGui::Begin("Jogos", NULL, flags);   
 
             int GameWindowWidth;
             int GameWindowHeight;
@@ -114,9 +115,30 @@ int main(int, char**)
             ImGui::SetWindowPos(ImVec2(resolveAspectX , resolveAspectY), 0);
             ImGui::SetWindowSize(ImVec2(GameWindowWidth - resolveAspectWidth, resolveAspectHeight), 0);
 
-            //var.updateGames(renderer); --> RenderCopy of Games Icons
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-            // Consertar ALTURA RATIO, adicionar jogos = Array<Jogo> -> nome, id, icon
+            float internBoxXSize = ImGui::GetWindowSize().x - ImGui::GetStyle().ItemSpacing.x - ImGui::GetStyle().WindowBorderSize - ImGui::GetStyle().FramePadding.x - ImGui::GetStyle().DisplaySafeAreaPadding.x;
+
+            //GAME LIST
+                //ImGui::BeginChild(1, ImVec2(internBoxXSize, 60), ImGuiChildFlags_Border, ImGuiWindowFlags_NoScrollbar);
+                    //ImGui::ImageButton(texture, ImVec2(100, 54));
+                    //ImGui::SameLine();
+                    //ImGui::SetWindowFontScale(1.5);
+                    //ImGui::SetCursorPos(ImVec2(120, 20));
+                    //ImGui::Text("Red Dead Redemption");
+                //ImGui::EndChild();
+            
+                
+                ImGui::BeginChild(1, ImVec2(internBoxXSize, 60), ImGuiChildFlags_Border, ImGuiWindowFlags_NoScrollbar);                   
+                    ImGui::SetCursorPosY(1);                                         // BUTTON POS
+                        ImGui::Button("##Game Button", ImVec2(internBoxXSize, 60 - ImGui::GetStyle().ChildBorderSize * 2));
+                    ImGui::SetCursorPos(ImVec2(100, 30 - ImGui::GetFontSize() / 2)); // GAME NAME POS
+                        ImGui::Text("Counter-Strike 2");
+                    ImGui::SetCursorPos(ImVec2(5, 5));                               //IMAGE POS
+                        ImGui::Image(texture, ImVec2(80, 50));
+                ImGui::EndChild();
+
+            ImGui::PopStyleVar();
             ImGui::End();   
         }
         //*
@@ -142,6 +164,7 @@ Cleanup:
 
     //SDL2
     SDL_DestroyTexture(BackgroundT);
+    SDL_DestroyTexture(texture);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
