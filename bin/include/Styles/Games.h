@@ -6,6 +6,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include <ImGui/imgui.h>
+
 #include <iostream>
 
 #define jumpL std::cout << "\n"
@@ -19,14 +21,13 @@ public:
 	struct Game {
 		int steamId = 0;
 		std::string name = "null";
-		SDL_Surface* icon;
+		SDL_Texture* icon = nullptr;
 	};
 
 	Game games[maxGameList];
-	SDL_Texture* icons[maxGameList];
 
 	void addGame(int steamId, char* name, SDL_Renderer* renderer,SDL_Surface* icon);
-	void updateGames(SDL_Renderer* renderer);
+	void updateGames();
 	void cleanup();
 };
 

@@ -16,6 +16,8 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
+Games var;
+
 int main(int, char**)
 {
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
@@ -45,6 +47,7 @@ int main(int, char**)
         ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(1, 0, 0, 1));
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25, 0, 0, 0.25));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.35, 0, 0, 0.35));
 
     //ImGui + SDL2 Renderer
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
@@ -65,6 +68,11 @@ int main(int, char**)
     // Create Button to addGame()
     SDL_Surface* surface = IMG_Load("../bin/resources/games/cs2.jpg");
     SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    // ADD GAME TO THE GAME LIST
+    // -============
+        var.addGame(163, (char*)"Counter-Strike 2", renderer, IMG_Load("../bin/resources/games/cs2.jpg"));
+    // -============
 
     //Variables:----------------------------------------------------------------------}
 
@@ -87,7 +95,7 @@ int main(int, char**)
         SDL_RenderCopy(renderer, BackgroundT, NULL, NULL);
         
         {        
-            ImGuiWindowFlags flags = (ImGuiWindowFlags)(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+            ImGuiWindowFlags flags = (ImGuiWindowFlags)(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
             ImGui::SetNextWindowBgAlpha(0.5f);
             ImGui::Begin("Jogos", NULL, flags);   
 
@@ -115,30 +123,11 @@ int main(int, char**)
             ImGui::SetWindowPos(ImVec2(resolveAspectX , resolveAspectY), 0);
             ImGui::SetWindowSize(ImVec2(GameWindowWidth - resolveAspectWidth, resolveAspectHeight), 0);
 
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
+            //Show Games in the Game list
+            // -=======================//
+                var.updateGames();     // MAIN OBJECTIVE 50% :-D
+            // -=======================//
 
-            float internBoxXSize = ImGui::GetWindowSize().x - ImGui::GetStyle().ItemSpacing.x - ImGui::GetStyle().WindowBorderSize - ImGui::GetStyle().FramePadding.x - ImGui::GetStyle().DisplaySafeAreaPadding.x;
-
-            //GAME LIST
-                //ImGui::BeginChild(1, ImVec2(internBoxXSize, 60), ImGuiChildFlags_Border, ImGuiWindowFlags_NoScrollbar);
-                    //ImGui::ImageButton(texture, ImVec2(100, 54));
-                    //ImGui::SameLine();
-                    //ImGui::SetWindowFontScale(1.5);
-                    //ImGui::SetCursorPos(ImVec2(120, 20));
-                    //ImGui::Text("Red Dead Redemption");
-                //ImGui::EndChild();
-            
-                
-                ImGui::BeginChild(1, ImVec2(internBoxXSize, 60), ImGuiChildFlags_Border, ImGuiWindowFlags_NoScrollbar);                   
-                    ImGui::SetCursorPosY(1);                                         // BUTTON POS
-                        ImGui::Button("##Game Button", ImVec2(internBoxXSize, 60 - ImGui::GetStyle().ChildBorderSize * 2));
-                    ImGui::SetCursorPos(ImVec2(100, 30 - ImGui::GetFontSize() / 2)); // GAME NAME POS
-                        ImGui::Text("Counter-Strike 2");
-                    ImGui::SetCursorPos(ImVec2(5, 5));                               //IMAGE POS
-                        ImGui::Image(texture, ImVec2(80, 50));
-                ImGui::EndChild();
-
-            ImGui::PopStyleVar();
             ImGui::End();   
         }
         //*
@@ -155,7 +144,7 @@ int main(int, char**)
 Cleanup:
     //Styles Game list
     // - Delete All Surfaces from addGame()
-    //var.cleanup();
+    var.cleanup();
 
     //ImGui
     ImGui_ImplSDLRenderer2_Shutdown();
