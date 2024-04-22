@@ -4,7 +4,7 @@
 	
 
 // Add a Game to the Games List ( games arrray )
-void Games::addGame(int steamId, char* name, SDL_Renderer* renderer, SDL_Surface* icon) {
+void Games::addGame(std::string directory, char* name, int steamId, SDL_Renderer* renderer, SDL_Surface* icon) {
 	for (int i = 0; i < maxGameList; i++) {
 		if (Games::games[i].steamId <= 0) {
 			if (steamId > 0) {

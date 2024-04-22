@@ -141,10 +141,12 @@
     <ClCompile Include="..\bin\include\ImGui\imgui_stdlib.cpp" />
     <ClCompile Include="..\bin\include\ImGui\imgui_tables.cpp" />
     <ClCompile Include="..\bin\include\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="..\bin\include\Styles\FileSelect.cpp" />
     <ClCompile Include="..\bin\include\Styles\Games.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\bin\include\Styles\FileSelect.h" />
     <ClInclude Include="..\bin\include\Styles\Games.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

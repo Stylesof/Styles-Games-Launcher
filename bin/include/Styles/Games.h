@@ -19,14 +19,15 @@ public:
 	//Games();
 
 	struct Game {
-		int steamId = 0;
+		std::string directory = "null";
 		std::string name = "null";
+		int steamId = 0;
 		SDL_Texture* icon = nullptr;
 	};
 
 	Game games[maxGameList];
 
-	void addGame(int steamId, char* name, SDL_Renderer* renderer,SDL_Surface* icon);
+	void addGame(std::string directory, char* name, int steamId, SDL_Renderer* renderer,SDL_Surface* icon);
 	void updateGames();
 	void cleanup();
 };
