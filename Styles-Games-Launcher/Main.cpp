@@ -8,9 +8,15 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#include <Styles/Games.h>
+
+#define print(x) std::cout << x
+
 #if !SDL_VERSION_ATLEAST(2,0,17)
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
+
+Games var;
 
 int main(int, char**)
 {
@@ -36,22 +42,39 @@ int main(int, char**)
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 
     ImGui::StyleColorsDark(); //THEME
-    ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(1, 0, 0, 1));
-    ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_TitleBgActive, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(1, 0, 0, 1));
+        ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25, 0, 0, 0.25));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.35, 0, 0, 0.35));
 
     //ImGui + SDL2 Renderer
     ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
     ImGui_ImplSDLRenderer2_Init(renderer);
 
-    //Variables:
-
+    //Variables:----------------------------------------------------------------------{
+    /* EXAMPLE OF GAME ADD TO GAME LIST -->
+    - Games var;
+    - SDL_Texture* cs2;
+    - var.addGame(126, (char*)"Cs2", renderer, IMG_Load("../bin/resources/games/cs2.jgp"));
+    - var.addGame(173, (char*)"Warzone", renderer, IMG_Load("../bin/resources/games/cs2.jgp"));
+    */
+    
     SDL_Surface* Background = IMG_Load("../bin/resources/gui/Background.png");
-    if (Background == nullptr) {
-        std::cout << "TEXTURE LOADING ERROR";
-    }
     SDL_Texture* BackgroundT = SDL_CreateTextureFromSurface(renderer, Background);
+    if (Background == nullptr || BackgroundT == nullptr) print("TEXTURE LOADING ERROR");
 
-    float val = 2.5f;
+    // Create Button to addGame()
+    SDL_Surface* surface = IMG_Load("../bin/resources/games/cs2.jpg");
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+    // ADD GAME TO THE GAME LIST
+    // -============
+        var.addGame(163, (char*)"Counter-Strike 2", renderer, IMG_Load("../bin/resources/games/cs2.jpg"));
+    // -============
+
+    //Variables:----------------------------------------------------------------------}
 
     // Main loop
     while (true){
@@ -68,14 +91,13 @@ int main(int, char**)
 
         SDL_RenderClear(renderer);
 
-        //Codigo{---
-
+        //Codigo--------------------------------------------------------------------------{
         SDL_RenderCopy(renderer, BackgroundT, NULL, NULL);
-
-        {
-            ImGuiWindowFlags flags = (ImGuiWindowFlags)(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse);
+        
+        {        
+            ImGuiWindowFlags flags = (ImGuiWindowFlags)(ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
             ImGui::SetNextWindowBgAlpha(0.5f);
-            ImGui::Begin("Jogos", NULL, flags);  
+            ImGui::Begin("Jogos", NULL, flags);   
 
             int GameWindowWidth;
             int GameWindowHeight;
@@ -97,27 +119,33 @@ int main(int, char**)
             int WindowYRatio = 30;
             int resolveAspectY = (GameWindowHeight * WindowYRatio) / 810;
 
-            // Consertar ALTURA RATIO, adicionar jogos = Array<Jogo> -> nome, id, icon
-
+            //Adjust Games Window with Backgroud.png 
             ImGui::SetWindowPos(ImVec2(resolveAspectX , resolveAspectY), 0);
             ImGui::SetWindowSize(ImVec2(GameWindowWidth - resolveAspectWidth, resolveAspectHeight), 0);
-            // 810 / 60 - 1080 / x
 
-            ImGui::End();
+            //Show Games in the Game list
+            // -=======================//
+                var.updateGames();     // MAIN OBJECTIVE 50% :-D
+            // -=======================//
+
+            ImGui::End();   
         }
-
-        //Codigo---}
+        //*
+        //Codigo--------------------------------------------------------------------------}
 
         // Rendering
         ImGui::Render();
         SDL_RenderSetScale(renderer, io.DisplayFramebufferScale.x, io.DisplayFramebufferScale.y);
         ImGui_ImplSDLRenderer2_RenderDrawData(ImGui::GetDrawData());
 
-
         SDL_RenderPresent(renderer);
     }
 
 Cleanup:
+    //Styles Game list
+    // - Delete All Surfaces from addGame()
+    var.cleanup();
+
     //ImGui
     ImGui_ImplSDLRenderer2_Shutdown();
     ImGui_ImplSDL2_Shutdown();
@@ -125,6 +153,7 @@ Cleanup:
 
     //SDL2
     SDL_DestroyTexture(BackgroundT);
+    SDL_DestroyTexture(texture);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
